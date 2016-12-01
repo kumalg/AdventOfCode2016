@@ -88,11 +88,11 @@ class Position {
     }
 
     private void tryAddNewPositionToList(int x, int y){
-        if (!listOfAllPositions.contains(new Position(x,y)))
-            listOfAllPositions.add(new Position(x,y));
-        else{
-            if (firstRepeatedPosition == null)
-                firstRepeatedPosition = new Position(x,y);
+        if (firstRepeatedPosition == null){
+            if (!listOfAllPositions.contains(new Position(x,y)))
+                listOfAllPositions.add(new Position(x,y));
+            else
+                firstRepeatedPosition = new Position(x, y);
         }
     }
 
