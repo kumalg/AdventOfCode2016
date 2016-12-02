@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,19 +8,19 @@ import java.util.Arrays;
  */
 public class day2 {
 
-    private ArrayList<String> pin1to9Template = new ArrayList<>(Arrays.asList(new String[]{
+    private ArrayList<String> pin1to9Template = new ArrayList<>(Arrays.asList(
             "123",
             "456",
             "789"
-    }));
+    ));
 
-    private ArrayList<String> pin1toDTemplate = new ArrayList<>(Arrays.asList(new String[]{
+    private ArrayList<String> pin1toDTemplate = new ArrayList<>(Arrays.asList(
             "  1  ",
             " 234 ",
             "56789",
             " ABC ",
             "  D  "
-    }));
+    ));
 
     private ArrayList<String> numsString = new ArrayList<>();
     private Number num1to9 = new Number(pin1to9Template, '5');
@@ -29,7 +28,7 @@ public class day2 {
     private ArrayList<Character> pin1to9 = new ArrayList<>();
     private ArrayList<Character> pin1toD = new ArrayList<>();
 
-    private day2() throws IOException{
+    private day2() throws Exception{
 
         BufferedReader in = new BufferedReader(new FileReader("AdventOfCode/describtion/day2/input.txt"));
 
@@ -61,7 +60,7 @@ public class day2 {
         }
     }
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws Exception{
         new day2();
     }
 }
@@ -71,11 +70,11 @@ class Number {
     private ArrayList<String> pinTemplate = new ArrayList<>();
     private int xPos = 0, yPos = 0;
 
-    public char getActualChar(){
+    public char getActualChar() throws Exception{
         try {
-            return pinTemplate.get(yPos).toCharArray()[xPos];
+            return pinTemplate.get(yPos).charAt(xPos);
         } catch (IndexOutOfBoundsException e){
-            return 'X';
+            throw new Exception("Kłopociki :<");
         }
     }
 
@@ -85,12 +84,11 @@ class Number {
             if (pinTemplate.get(i).contains(Character.toString(startChar))){
                 yPos = i;
                 for (int j = 0; j < pinTemplate.get(i).length() ; j++){
-                    if (pinTemplate.get(i).toCharArray()[j] == startChar) {
+                    if (pinTemplate.get(i).charAt(j) == startChar) {
                         xPos = j;
                         break;
                     }
                 }
-
             }
         }
 
@@ -120,9 +118,11 @@ class Number {
             }
         }
 
-        try {
-             newChar = pinTemplate.get(newYPos).toCharArray()[newXPos];
-        } catch (IndexOutOfBoundsException e){}
+        if (newYPos>= 0 && newYPos < pinTemplate.size()){
+            if (newXPos >= 0 && newXPos < pinTemplate.get(newYPos).length()){
+                newChar = pinTemplate.get(newYPos).charAt(newXPos);
+            }
+        }
 
         if (newChar != ' '){
             xPos = newXPos;

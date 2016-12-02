@@ -99,12 +99,12 @@ class Position {
     private void changeDirection(char leftOrRight){
         switch (direction){
             case 'N' : {
-                    if (leftOrRight == 'R')
-                        direction = 'E';
-                    else if (leftOrRight == 'L')
-                        direction = 'W';
-                    break;
-                }
+                if (leftOrRight == 'R')
+                    direction = 'E';
+                else if (leftOrRight == 'L')
+                    direction = 'W';
+                break;
+            }
             case 'S' : {
                 if (leftOrRight == 'R')
                     direction = 'W';
