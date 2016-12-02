@@ -1,59 +1,69 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by Kamil on 02.12.2016.
  */
 public class day2 {
-    private String input = "LURLLLLLDUULRDDDRLRDDDUDDUULLRLULRURLRRDULUUURDUURLRDRRURUURUDDRDLRRLDDDDLLDURLDUUUDRDDDLULLDDLRLRRRLDLDDDDDLUUUDLUULRDUDLDRRRUDUDDRULURULDRUDLDUUUDLUDURUURRUUDRLDURRULURRURUUDDLRLDDDDRDRLDDLURLRDDLUDRLLRURRURRRURURRLLRLDRDLULLUDLUDRURDLRDUUDDUUDRLUDDLRLUDLLURDRUDDLRURDULLLUDDURULDRLUDLUDLULRRUUDDLDRLLUULDDURLURRRRUUDRUDLLDRUDLRRDUDUUURRULLDLDDRLUURLDUDDRLDRLDULDDURDLUUDRRLDRLLLRRRDLLLLURDLLLUDRUULUULLRLRDLULRLURLURRRDRLLDLDRLLRLULRDDDLUDDLLLRRLLLUURLDRULLDURDLULUDLRLDLUDURLLLURUUUDRRRULRDURLLURRLDLRLDLDRRUUDRDDDDDRDUUDULUL\n" +
-            "RRURLURRULLUDUULUUURURULLDLRLRRULRUDUDDLLLRRRRLRUDUUUUDULUDRULDDUDLURLRRLLDLURLRDLDUULRDLLLDLLULLURLLURURULUDLDUDLUULDDLDRLRRUURRRLLRRLRULRRLDLDLRDULDLLDRRULRDRDUDUUUDUUDDRUUUDDLRDULLULDULUUUDDUULRLDLRLUUUUURDLULDLUUUULLLLRRRLDLLDLUDDULRULLRDURDRDRRRDDDLRDDULDLURLDLUDRRLDDDLULLRULDRULRURDURRUDUUULDRLRRUDDLULDLUULULRDRDULLLDULULDUDLDRLLLRLRURUDLUDDDURDUDDDULDRLUDRDRDRLRDDDDRLDRULLURUDRLLUDRLDDDLRLRDLDDUULRUDRLUULRULRLDLRLLULLUDULRLDRURDD\n" +
-            "UUUUUURRDLLRUDUDURLRDDDURRRRULRLRUURLLLUULRUDLLRUUDURURUDRDLDLDRDUDUDRLUUDUUUDDURRRDRUDDUURDLRDRLDRRULULLLUDRDLLUULURULRULDRDRRLURULLDURUURDDRDLLDDDDULDULUULLRULRLDURLDDLULRLRRRLLURRLDLLULLDULRULLDLRULDDLUDDDLDDURUUUURDLLRURDURDUUDRULDUULLUUULLULLURLRDRLLRULLLLRRRRULDRULLUURLDRLRRDLDDRLRDURDRRDDDRRUDRLUULLLULRDDLDRRLRUDLRRLDULULRRDDURULLRULDUDRLRUUUULURLRLRDDDUUDDULLULLDDUDRLRDDRDRLDUURLRUULUULDUDDURDDLLLURUULLRDLRRDRDDDUDDRDLRRDDUURDUULUDDDDUUDDLULLDRDDLULLUDLDDURRULDUDRRUURRDLRLLDDRRLUUUDDUUDUDDDDDDDLULURRUULURLLUURUDUDDULURDDLRDDRRULLLDRRDLURURLRRRDDLDUUDR\n" +
-            "URLLRULULULULDUULDLLRDUDDRRLRLLLULUDDUDLLLRURLLLLURRLRRDLULRUDDRLRRLLRDLRRULDLULRRRRUUDDRURLRUUDLRRULDDDLRULDURLDURLRLDDULURDDDDULDRLLUDRULRDDLUUUDUDUDDRRUDUURUURLUUULRLULUURURRLRUUULDDLURULRRRRDULUDLDRLLUURRRLLURDLDLLDUDRDRLLUDLDDLRLDLRUDUULDRRLLULDRRULLULURRLDLUUDLUDDRLURDDUDRDUDDDULLDRUDLRDLRDURUULRRDRUUULRUURDURLDUDRDLLRUULUULRDDUDLRDUUUUULDDDDDRRULRURLLRLLUUDLUDDUULDRULDLDUURUDUDLRULULUULLLLRLULUDDDRRLLDRUUDRLDDDRDDURRDDDULURDLDLUDDUULUUURDULDLLULRRUURDDUDRUULDLRLURUDLRDLLLDRLDUURUDUDRLLLDDDULLUDUUULLUUUDLRRRURRRRRDUULLUURRDUU\n" +
-            "UDULUUDLDURRUDDUDRDDRRUULRRULULURRDDRUULDRLDUDDRRRRDLRURLLLRLRRLLLULDURRDLLDUDDULDLURLURUURLLLDUURRUUDLLLUDRUDLDDRLRRDLRLDDDULLRUURUUUDRRDLLLRRULDRURLRDLLUDRLLULRDLDDLLRRUDURULRLRLDRUDDLUUDRLDDRUDULLLURLRDLRUUDRRUUDUDRDDRDRDDLRULULURLRULDRURLURLRDRDUUDUDUULDDRLUUURULRDUDRUDRULUDDULLRDDRRUULRLDDLUUUUDUDLLLDULRRLRDDDLULRDUDRLDLURRUUDULUDRURUDDLUUUDDRLRLRLURDLDDRLRURRLLLRDRLRUUDRRRLUDLDLDDDLDULDRLURDURULURUDDDUDUULRLLDRLDDDDRULRDRLUUURD";
-    private String[] numsString = input.split("\n");
-    private Number num = new Number(5);
-    private Number1D num1D = new Number1D('5');
-    private ArrayList<Integer> nums = new ArrayList<>();
-    private ArrayList<Character> nums1D = new ArrayList<>();
 
-    private day2(){
+    private ArrayList<String> numsString = new ArrayList<>();
+    private Number1to9 num1to9 = new Number1to9('5');
+    private Number1toD num1toD = new Number1toD('5');
+    private ArrayList<Character> pin1to9 = new ArrayList<>();
+    private ArrayList<Character> pin1toD = new ArrayList<>();
 
-        for (int i = 0; i < numsString.length; i++){
-            for (char c : numsString[i].toCharArray()){
-                num.move(c);
-                num1D.move(c);
+    private day2() throws IOException{
+
+        BufferedReader in = new BufferedReader(new FileReader("AdventOfCode/describtion/day2/input.txt"));
+
+        String line;
+        while((line = in.readLine()) != null) {
+            numsString.add(line);
+        }
+        in.close();
+
+        for (int i = 0; i < numsString.size(); i++){
+            for (char c : numsString.get(i).toCharArray()){
+                num1to9.move(c);
+                num1toD.move(c);
             }
-            nums.add(i,num.getActualNum());
-            nums1D.add(i,num1D.getActualChar());
-            num = new Number(nums.get(i));
-            num1D = new Number1D(nums1D.get(i));
+            pin1to9.add(i,num1to9.getActualChar());
+            pin1toD.add(i,num1toD.getActualChar());
+            num1to9 = new Number1to9(pin1to9.get(i));
+            num1toD = new Number1toD(pin1toD.get(i));
         }
 
-        for (int i : nums){
-            System.out.print(i);
+        for (char char1to9 : pin1to9){
+            System.out.print(char1to9);
         }
 
         System.out.print("\n");
 
-        for (char i1D : nums1D){
-            System.out.print(i1D);
+        for (char char1toD : pin1toD){
+            System.out.print(char1toD);
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException{
         new day2();
     }
 
 }
 
-class Number1D {
-    private char actualNum;
-
-    Number1D(char startNum){
-        actualNum = startNum;
-    }
+abstract class Number {
+    protected char actualNum;
 
     public char getActualChar(){
         return actualNum;
+    }
+}
+
+class Number1toD extends Number{
+
+    Number1toD(char startNum){
+        actualNum = startNum;
     }
 
     public void move(char where){
@@ -236,140 +246,135 @@ class Number1D {
     }
 }
 
-class Number {
-    private int actualNum;
+class Number1to9 extends Number{
 
-    Number(int startNum){
+    Number1to9(char startNum){
         actualNum = startNum;
-    }
-
-    public int getActualNum(){
-        return actualNum;
     }
 
     public void move(char where){
         switch (actualNum){
-            case 1:{
+            case '1':{
                 switch (where){
                     case 'D':
-                        actualNum = 4;
+                        actualNum = '4';
                         break;
                     case 'R':
-                        actualNum = 2;
+                        actualNum = '2';
                         break;
                 }
                 break;
             }
 
-            case 2:{
+            case '2':{
                 switch (where){
                     case 'D':
-                        actualNum = 5;
+                        actualNum = '5';
                         break;
                     case 'L':
-                        actualNum = 1;
+                        actualNum = '1';
                         break;
                     case 'R':
-                        actualNum = 3;
+                        actualNum = '3';
                         break;
                 }
                 break;
             }
 
-            case 3:{
+            case '3':{
                 switch (where){
                     case 'D':
-                        actualNum = 6;
+                        actualNum = '6';
                         break;
                     case 'L':
-                        actualNum = 2;
+                        actualNum = '2';
                         break;
                 }
                 break;
             }
 
-            case 4:{
+            case '4':{
                 switch (where){
                     case 'U':
-                        actualNum = 1;
+                        actualNum = '1';
                         break;
                     case 'D':
-                        actualNum = 7;
+                        actualNum = '7';
                         break;
                     case 'R':
-                        actualNum = 5;
+                        actualNum = '5';
                         break;
                 }
                 break;
             }
 
-            case 5:{
+            case '5':{
                 switch (where){
                     case 'U':
-                        actualNum = 2;
+                        actualNum = '2';
                         break;
                     case 'D':
-                        actualNum = 8;
+                        actualNum = '8';
                         break;
                     case 'L':
-                        actualNum = 4;
+                        actualNum = '4';
                         break;
                     case 'R':
-                        actualNum = 6;
+                        actualNum = '6';
                         break;
                 }
                 break;
             }
 
-            case 6:{
+            case '6':{
                 switch (where){
                     case 'U':
-                        actualNum = 3;
+                        actualNum = '3';
                         break;
                     case 'D':
-                        actualNum = 9;
+                        actualNum = '9';
                         break;
                     case 'L':
-                        actualNum = 5;
+                        actualNum = '5';
                         break;
                 }
                 break;
             }
 
-            case 7:{
+            case '7':{
                 switch (where){
                     case 'U':
-                        actualNum = 4;
+                        actualNum = '4';
                         break;
                     case 'R':
-                        actualNum = 8;
+                        actualNum = '8';
                         break;
                 }
                 break;
             }
 
-            case 8:{
+            case '8':{
                 switch (where){
                     case 'U':
-                        actualNum = 5;
+                        actualNum = '5';
                         break;
                     case 'L':
-                        actualNum = 7;
+                        actualNum = '7';
                         break;
                     case 'R':
-                        actualNum = 9;
+                        actualNum = '9';
                         break;
                 }
                 break;
             }
 
-            case 9:{
+            case '9':{
                 switch (where){
                     case 'U':
-                        actualNum = 6;
+                        actualNum = '6';
                         break;
                     case 'L':
-                        actualNum = 8;
+                        actualNum = '8';
                         break;
                 }
                 break;
