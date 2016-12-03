@@ -13,7 +13,7 @@ public class day1 {
         for (String s : allMovesArray)
             position.go(s);
 
-        System.out.println("Hearthquaqe position: " + position.getPositionString());
+        System.out.println("  Headquarters position: " + position.getPositionString());
         System.out.println("First repeated position: " + position.getFirstRepeatedPositionString());
     }
 
