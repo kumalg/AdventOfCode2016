@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class Day3 {
 
     private Day3() throws IOException{
-        List<String> listOfTriangles = Files.lines(Paths.get("AdventOfCode/describtion/day3/input.txt")).collect(Collectors.toList());
+        List<String> listOfTriangles = Files.lines(Paths.get("AdventOfCode/description/day3/input.txt")).collect(Collectors.toList());
         System.out.println("   By row: " + howManyPossibleTrianglesByRow(listOfTriangles));
         System.out.println("By column: " + howManyPossibleTrianglesByColumn(listOfTriangles));
     }

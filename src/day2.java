@@ -44,7 +44,7 @@ public class day2 {
     }
 
     private day2() throws Exception{
-        numsString = Files.lines(Paths.get("AdventOfCode/describtion/day2/input.txt")).collect(Collectors.toList());
+        numsString = Files.lines(Paths.get("AdventOfCode/description/day2/input.txt")).collect(Collectors.toList());
 
         System.out.println(findPin(keypad1to9Template, numsString, '5'));
         System.out.println(findPin(keypad1toDTemplate, numsString, '5'));
