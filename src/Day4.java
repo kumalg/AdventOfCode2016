@@ -12,13 +12,13 @@ public class Day4 {
 
         for(String roomString : listOfRooms){
             Room room = new Room(roomString);
-            if (room.unencryptName().equals("northpole object storage"))
-                System.out.println("sector ID of the room where North Pole objects are stored: " + room.getSectorID());
+            if (room.decryptName().equals("northpole object storage"))
+                System.out.println("Sector ID of the room where North Pole objects are stored: " + room.getSectorID());
             if (room.isRealRoom())
                 allID += room.getSectorID();
         }
 
-        System.out.print(allID);
+        System.out.println("                  Sum of the sector IDs of the real rooms: " + allID);
     }
 }
 
@@ -31,7 +31,7 @@ class Char {
         this.number = number;
     }
 
-    public char getAChar(){ return aChar; }
+    public char getChar(){ return aChar; }
 
     public int getNumber(){ return number; }
 }
@@ -54,30 +54,30 @@ class Room {
         checkSum = iDAndCheckSum.substring(firstBracket+1);
     }
 
-    public String unencryptName(){
-        String unencryptedName = "";
+    public String decryptName(){
+        String decryptedName = "";
         int howMany = sectorID % 26;
 
-        for (char c : encryptedName.toCharArray())
-            unencryptedName += c == ' ' ? ' ' : (char)((c - 97 + howMany)%26 + 97);
+        for (char encryptedChar : encryptedName.toCharArray())
+            decryptedName += encryptedChar == ' ' ? ' ' : (char)((encryptedChar - 'a' + howMany)%26 + 'a');
 
-        return unencryptedName;
+        return decryptedName;
     }
 
     public boolean isRealRoom(Room this){
-        List<Char> yco = new ArrayList<>();
-        Map<Character, Integer> map = getCharCounts(this.getEncryptedName().replace(" ",""));
+        List<Char> listOfLetters = new ArrayList<>();
+        Map<Character, Integer> mapOfLetters = getCharCounts(this.getEncryptedName().replace(" ",""));
 
         String realCheckSum = "";
 
-        for (char c : map.keySet()){
-            yco.add(new Char(c, map.get(c)));
+        for (char c : mapOfLetters.keySet()){
+            listOfLetters.add(new Char(c, mapOfLetters.get(c)));
         }
 
-        Collections.sort(yco, (Char o1, Char o2) -> new Integer(o2.getNumber()).compareTo(o1.getNumber()));
+        Collections.sort(listOfLetters, (Char o1, Char o2) -> new Integer(o2.getNumber()).compareTo(o1.getNumber()));
 
-        for (int i = 0; i<5;i++)
-            realCheckSum += yco.get(i).getAChar();
+        for (int i = 0; i<5; i++)
+            realCheckSum += listOfLetters.get(i).getChar();
 
         return realCheckSum.equals(this.getCheckSum());
     }
