@@ -12,7 +12,9 @@ public class Day4 {
 
         for(String roomString : listOfRooms){
             Room room = new Room(roomString);
-            if (new Room(roomString).isRealRoom())
+            if (room.unencryptName().equals("northpole object storage"))
+                System.out.println("sector ID of the room where North Pole objects are stored: " + room.getSectorID());
+            if (room.isRealRoom())
                 allID += room.getSectorID();
         }
 
@@ -43,7 +45,7 @@ class Room {
         int lastDash = encryptedRoom.lastIndexOf('-');
         int firstBracket;
 
-        encryptedName = encryptedRoom.substring(0,lastDash).replace("-","");
+        encryptedName = encryptedRoom.substring(0,lastDash).replace("-"," ");
 
         String iDAndCheckSum = encryptedRoom.substring(lastDash+1).replace("]","");
         firstBracket = iDAndCheckSum.indexOf('[');
@@ -52,9 +54,19 @@ class Room {
         checkSum = iDAndCheckSum.substring(firstBracket+1);
     }
 
+    public String unencryptName(){
+        String unencryptedName = "";
+        int howMany = sectorID % 26;
+
+        for (char c : encryptedName.toCharArray())
+            unencryptedName += c == ' ' ? ' ' : (char)((c - 97 + howMany)%26 + 97);
+
+        return unencryptedName;
+    }
+
     public boolean isRealRoom(Room this){
         List<Char> yco = new ArrayList<>();
-        Map<Character, Integer> map = getCharCounts(this.getEncryptedName());
+        Map<Character, Integer> map = getCharCounts(this.getEncryptedName().replace(" ",""));
 
         String realCheckSum = "";
 
@@ -85,5 +97,3 @@ class Room {
 
     private String getCheckSum(){ return checkSum; }
 }
-
-
