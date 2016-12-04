@@ -22,7 +22,7 @@ public class Day3 {
         List<List<Integer>> newList = new ArrayList<>();
 
         for(String s : list){
-            String[] sidesStrings = s.trim().split(" +");
+            String[] sidesStrings = s.trim().split("\\s+");
             List<Integer> sidesInt = new ArrayList<>();
 
             for (int i = 0; i < 3; i++)
