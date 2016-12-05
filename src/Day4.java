@@ -64,7 +64,7 @@ class Room {
         return decryptedName;
     }
 
-    public boolean isRealRoom(Room this){
+    public boolean isRealRoom(Room this){ // this jest niepotrzebny, ale dobrze wiedzieć że działa nawet wywołanie samego .isRealRoom()
         List<Char> listOfLetters = new ArrayList<>();
         Map<Character, Integer> mapOfLetters = getCharCounts(this.getEncryptedName().replace(" ",""));
 
