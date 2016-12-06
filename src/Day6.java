@@ -1,21 +1,22 @@
-import javafx.util.Pair;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Day6 {
     public static void main(String[] args) throws IOException{
         List<String> input = Files.lines(Paths.get("AdventOfCode/description/day6/input.txt")).collect(Collectors.toList());
 
-        System.out.println(correctText(input, (a, b) -> a > b));
-        System.out.println(correctText(input, (a, b) -> a < b));
+        System.out.println(correctText(input, entry -> entry.getValue()));
+        System.out.println(correctText(input, entry -> -entry.getValue()));
     }
 
-    private static String correctText(List<String> input, IntComparator comparator){
+    private static String correctText(List<String> input,
+                                      Function<Map.Entry<Character, Integer>, Integer> cmp){
         Map<Character, Integer> allCharactersByColumn = new HashMap<>();
-        Pair<Character, Integer> correctChar = new Pair<>('#',0);
+
         String output = "";
 
         for (int col = 0; col < input.get(0).length(); col++){
@@ -24,21 +25,17 @@ public class Day6 {
                 allCharactersByColumn.put(actualChar, allCharactersByColumn.getOrDefault(actualChar, 0) + 1);
             }
 
-            for (char c : allCharactersByColumn.keySet()){
-                if (correctChar.getKey() == '#'
-                        || comparator.gt(allCharactersByColumn.get(c), correctChar.getValue()))
-                    correctChar = new Pair<>(c, allCharactersByColumn.get(c));
-            }
+           char correctChar2 = allCharactersByColumn
+                   .entrySet()
+                   .stream()
+                   .min( Comparator.comparing(cmp) )
+                   .get()
+                   .getKey();
 
-            output += correctChar.getKey();
+            output += correctChar2;
 
-            correctChar = new Pair<>('#',0);
             allCharactersByColumn.clear();
         }
         return output;
     }
-}
-
-interface IntComparator{
-    boolean gt(int a, int b);
 }
