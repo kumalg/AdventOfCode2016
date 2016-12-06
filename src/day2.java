@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Kamil on 02.12.2016.
  */
-public class day2 {
+public class Day2 {
 
     private ArrayList<String> keypad1to9Template = new ArrayList<>(Arrays.asList(
             "123",
@@ -43,7 +43,7 @@ public class day2 {
         return pin;
     }
 
-    private day2() throws Exception{
+    private Day2() throws Exception{
         numsString = Files.lines(Paths.get("AdventOfCode/description/day2/input.txt")).collect(Collectors.toList());
 
         System.out.println(findPin(keypad1to9Template, numsString, '5'));
@@ -51,7 +51,7 @@ public class day2 {
     }
 
     public static void main(String[] args) throws Exception{
-        new day2();
+        new Day2();
     }
 }
 
