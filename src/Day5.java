@@ -9,25 +9,65 @@ public class Day5 {
     }
 
     Day5()  throws NoSuchAlgorithmException, UnsupportedEncodingException{
-        System.out.println(getPassword("ugkcyxxp"));
-        System.out.println(getPasswordWithPositions("ugkcyxxp"));
+        String input = "ffykfhsq";
+        long time = System.currentTimeMillis();
+        //getPassword(input);
+        //getPasswordWithPositions(input);
+        getTwoPasswords(input);
+        time = System.currentTimeMillis() - time;
+        System.out.print("\n");
+        System.out.println(time/1000.0 + " s");
+    }
+
+    private void getTwoPasswords(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+
+        int number = 0, where = 0;
+        Character[] firstOutputTable = {'*','*','*','*','*','*','*','*'};
+        Character[] secondOutputTable = {'*','*','*','*','*','*','*','*'};
+        System.out.print(tableToString(firstOutputTable) + " - " + tableToString(secondOutputTable));
+
+        while (!isNotNull(secondOutputTable)) {
+            String nextHash;
+            byte[] bytes = (input + Integer.toString(number++)).getBytes();
+            nextHash =  String.format("%1$032X", new BigInteger(1, md.digest(bytes)));
+            if (nextHash.substring(0,5).equals("00000")){
+                char position = nextHash.charAt(5);
+
+                if (where < 8)
+                    firstOutputTable[where++] = nextHash.charAt(5);
+
+                if (position >= '0'
+                        && position <'8'
+                        && secondOutputTable[Integer.parseInt(Character.toString(nextHash.charAt(5)))] == '*'){
+
+                    secondOutputTable[Integer.parseInt(Character.toString(nextHash.charAt(5)))] = nextHash.charAt(6);
+                }
+                System.out.print("\r" + tableToString(firstOutputTable) + " - " + tableToString(secondOutputTable));
+            }
+        }
     }
 
     private String getPassword(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 
         MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(input.getBytes());
 
         int number = 0;
         String output = "";
 
+        Character[] outputTable = {'*','*','*','*','*','*','*','*'};
+        System.out.print(tableToString(outputTable));
+        int where = 0;
+
         while (output.length() < input.length()) {
             String nextHash;
-            md.update((input + Integer.toString(++number)).getBytes());
-            nextHash = String.format("%1$032X", new BigInteger(1, md.digest()));
+            byte[] bytes = (input + Integer.toString(number++)).getBytes();
+            nextHash = String.format("%1$032X", new BigInteger(1, md.digest(bytes)));
             if (nextHash.substring(0, 5).equals("00000")) {
-                System.out.print("*");
                 output += nextHash.charAt(5);
+                outputTable[where++] = nextHash.charAt(5);
+                System.out.print("\r" + tableToString(outputTable));
             }
         }
 
@@ -36,42 +76,49 @@ public class Day5 {
         return output;
     }
 
-    private boolean isNotNull(Character[] input){
-        for (Character c : input)
-            if (c == null) return false;
-        return true;
-    }
-
     private String getPasswordWithPositions(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 
         MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(input.getBytes());
 
         int number = 0;
         String output = "";
-        Character[] output2 = new Character[8];
+        Character[] outputTable = {'*','*','*','*','*','*','*','*'};
+        System.out.print(tableToString(outputTable));
 
-        while (!isNotNull(output2)) {
+        while (!isNotNull(outputTable)) {
             String nextHash;
-            md.update((input + Integer.toString(++number)).getBytes());
-            nextHash =  String.format("%1$032X", new BigInteger(1, md.digest()));
+            byte[] bytes = (input + Integer.toString(number++)).getBytes();
+            nextHash =  String.format("%02X", new BigInteger(1, md.digest(bytes)));
             if (nextHash.substring(0,5).equals("00000")){
                 char position = nextHash.charAt(5);
                 if (position >= '0'
                     && position <'8'
-                    && output2[Integer.parseInt(Character.toString(nextHash.charAt(5)))] == null){
+                    && outputTable[Integer.parseInt(Character.toString(nextHash.charAt(5)))] == '*'){
 
-                    System.out.print("*");
-                    output2[Integer.parseInt(Character.toString(nextHash.charAt(5)))] = nextHash.charAt(6);
+                    outputTable[Integer.parseInt(Character.toString(nextHash.charAt(5)))] = nextHash.charAt(6);
+                    System.out.print("\r" + tableToString(outputTable));
                 }
             }
         }
 
         System.out.print("\n");
 
-        for (char c : output2)
+        for (char c : outputTable)
             output += c;
 
         return output;
+    }
+
+    private boolean isNotNull(Character[] input){
+        for (Character c : input)
+            if (c == '*') return false;
+        return true;
+    }
+
+    private String tableToString(Character[] inputTable){
+        String outputString = "";
+        for (Character c : inputTable)
+            outputString += c;
+        return outputString;
     }
 }

@@ -4,5 +4,6 @@ out/
 .gradle/
 gradle/
 build/
+src/C#/
 *.iml
 *.iws
