@@ -15,7 +15,7 @@ public class Day6 {
 
     private static String correctText(List<String> input, IntComparator comparator){
         Map<Character, Integer> allCharactersByColumn = new HashMap<>();
-        Pair<Character, Integer> correctChar = null;
+        Pair<Character, Integer> correctChar = new Pair<>('#',0);
         String output = "";
 
         for (int col = 0; col < input.get(0).length(); col++){
@@ -25,14 +25,14 @@ public class Day6 {
             }
 
             for (char c : allCharactersByColumn.keySet()){
-                if (correctChar == null
+                if (correctChar.getKey() == '#'
                         || comparator.gt(allCharactersByColumn.get(c), correctChar.getValue()))
                     correctChar = new Pair<>(c, allCharactersByColumn.get(c));
             }
 
             output += correctChar.getKey();
 
-            correctChar = null;
+            correctChar = new Pair<>('#',0);
             allCharactersByColumn.clear();
         }
         return output;
