@@ -13,10 +13,8 @@ public class Day6 {
         System.out.println(correctText(input, entry -> -entry.getValue()));
     }
 
-    private static String correctText(List<String> input,
-                                      Function<Map.Entry<Character, Integer>, Integer> cmp){
+    private static String correctText(List<String> input, Function<Map.Entry<Character, Integer>, Integer> cmp){
         Map<Character, Integer> allCharactersByColumn = new HashMap<>();
-
         String output = "";
 
         for (int col = 0; col < input.get(0).length(); col++){
@@ -25,17 +23,18 @@ public class Day6 {
                 allCharactersByColumn.put(actualChar, allCharactersByColumn.getOrDefault(actualChar, 0) + 1);
             }
 
-           char correctChar2 = allCharactersByColumn
+           char correctChar = allCharactersByColumn
                    .entrySet()
                    .stream()
                    .min( Comparator.comparing(cmp) )
                    .get()
                    .getKey();
 
-            output += correctChar2;
+            output += correctChar;
 
             allCharactersByColumn.clear();
         }
+
         return output;
     }
 }
