@@ -65,7 +65,7 @@ public class Day7 {
 
         return numberOfValidIPs;
     }
-    
+
     private static boolean haveABBAFromList(List<String> stringsTable){
         for(String singleString : stringsTable)
             if (haveABBA(singleString)) return true;
