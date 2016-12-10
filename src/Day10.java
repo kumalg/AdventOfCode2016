@@ -40,7 +40,7 @@ public class Day10 {
                 int botFromNumber = Integer.parseInt(instruction[1]);
                 int number;
 
-                if (botList.containsKey(botFromNumber) && botList.get(botFromNumber).values.size() > 1){
+                if (botList.containsKey(botFromNumber) && botList.get(botFromNumber).values.size() > 1 && !acceptedBots.contains(botFromNumber)){
                     number = Integer.parseInt(instruction[6]);
 
                     if (instruction[5].equals("bot")){
@@ -83,7 +83,7 @@ public class Day10 {
     }
 
     private class Bot{
-        private Set<Integer> values = new TreeSet<>();
+        private List<Integer> values = new ArrayList<>();
 
         Bot(int value){
             this.values.add(value);
