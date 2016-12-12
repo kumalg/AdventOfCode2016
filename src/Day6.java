@@ -6,14 +6,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Day6 {
-    public static void main(String[] args) throws IOException{
-        List<String> input = Files.lines(Paths.get("AdventOfCode/description/day6/input.txt")).collect(Collectors.toList());
+
+    Day6() throws IOException{
+        List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day6.txt")).collect(Collectors.toList());
 
         System.out.println(correctText(input, entry -> entry.getValue()));
         System.out.println(correctText(input, entry -> -entry.getValue()));
     }
 
-    private static String correctText(List<String> input, Function<Map.Entry<Character, Integer>, Integer> cmp){
+    private String correctText(List<String> input, Function<Map.Entry<Character, Integer>, Integer> cmp){
         Map<Character, Integer> allCharactersByColumn = new HashMap<>();
         String output = "";
 

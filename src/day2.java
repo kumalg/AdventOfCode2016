@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Kamil on 02.12.2016.
- */
 public class Day2 {
 
     private ArrayList<String> keypad1to9Template = new ArrayList<>(Arrays.asList(
@@ -24,13 +21,18 @@ public class Day2 {
             "  D  "
     );
 
-    private List<String> numsString = new ArrayList<>();
+    Day2() throws Exception {
+        List<String> numsString = numsString = Files.lines(Paths.get("AdventOfCode/inputs/day2.txt")).collect(Collectors.toList());
 
-    private String findPin (List<String> keypadTemplate, List<String> input, char startChar) throws Exception{
+        System.out.println(findPin(keypad1to9Template, numsString, '5'));
+        System.out.println(findPin(keypad1toDTemplate, numsString, '5'));
+    }
+
+    private String findPin(List<String> keypadTemplate, List<String> input, char startChar) throws Exception {
         String pin = "";
         Number number = new Number(keypadTemplate, startChar);
 
-        for (int i = 0; i < input.size(); i++){
+        for (int i = 0; i < input.size(); i++) {
             for (char c : input.get(i).toCharArray())
                 number.move(c);
 
@@ -43,79 +45,68 @@ public class Day2 {
         return pin;
     }
 
-    private Day2() throws Exception{
-        numsString = Files.lines(Paths.get("AdventOfCode/description/day2/input.txt")).collect(Collectors.toList());
+    class Number {
 
-        System.out.println(findPin(keypad1to9Template, numsString, '5'));
-        System.out.println(findPin(keypad1toDTemplate, numsString, '5'));
-    }
+        private List<String> keypadTemplate;
+        private int xPos = 0, yPos = 0;
 
-    public static void main(String[] args) throws Exception{
-        new Day2();
-    }
-}
-
-class Number {
-
-    private List<String> keypadTemplate;
-    private int xPos = 0, yPos = 0;
-
-    public char getActualChar() throws Exception{
-        try {
-            return keypadTemplate.get(yPos).charAt(xPos);
-        } catch (IndexOutOfBoundsException e){
-            throw new Exception("Kłopociki :<");
+        public char getActualChar() throws Exception {
+            try {
+                return keypadTemplate.get(yPos).charAt(xPos);
+            } catch (IndexOutOfBoundsException e) {
+                throw new Exception("Kłopociki :<");
+            }
         }
-    }
 
-    Number (List<String> pinTemplate, char startChar) {
-        for(int i = 0; i < pinTemplate.size(); i++){
-            if (pinTemplate.get(i).contains(Character.toString(startChar))){
-                for (int j = 0; j < pinTemplate.get(i).length(); j++){
-                    if (pinTemplate.get(i).charAt(j) == startChar) {
-                        xPos = j;
-                        yPos = i;
-                        break;
+        Number(List<String> pinTemplate, char startChar) {
+            for (int i = 0; i < pinTemplate.size(); i++) {
+                if (pinTemplate.get(i).contains(Character.toString(startChar))) {
+                    for (int j = 0; j < pinTemplate.get(i).length(); j++) {
+                        if (pinTemplate.get(i).charAt(j) == startChar) {
+                            xPos = j;
+                            yPos = i;
+                            break;
+                        }
                     }
                 }
             }
+
+            this.keypadTemplate = pinTemplate;
         }
 
-        this.keypadTemplate = pinTemplate;
-    }
+        public void move(char direction) {
+            int newXPos = xPos, newYPos = yPos;
+            char newChar = ' ';
 
-    public void move(char direction){
-        int newXPos = xPos, newYPos = yPos;
-        char newChar = ' ';
+            switch (direction) {
+                case 'U': {
+                    newYPos--;
+                    break;
+                }
+                case 'D': {
+                    newYPos++;
+                    break;
+                }
+                case 'L': {
+                    newXPos--;
+                    break;
+                }
+                case 'R': {
+                    newXPos++;
+                    break;
+                }
+            }
 
-        switch (direction){
-            case 'U' : {
-                newYPos--;
-                break;
+            if (newYPos >= 0 && newYPos < keypadTemplate.size()) {
+                if (newXPos >= 0 && newXPos < keypadTemplate.get(newYPos).length()) {
+                    newChar = keypadTemplate.get(newYPos).charAt(newXPos);
+                }
             }
-            case 'D' : {
-                newYPos++;
-                break;
-            }
-            case 'L' : {
-                newXPos--;
-                break;
-            }
-            case 'R' : {
-                newXPos++;
-                break;
-            }
-        }
 
-        if (newYPos>= 0 && newYPos < keypadTemplate.size()){
-            if (newXPos >= 0 && newXPos < keypadTemplate.get(newYPos).length()){
-                newChar = keypadTemplate.get(newYPos).charAt(newXPos);
+            if (newChar != ' ') {
+                xPos = newXPos;
+                yPos = newYPos;
             }
-        }
-
-        if (newChar != ' '){
-            xPos = newXPos;
-            yPos = newYPos;
         }
     }
 }

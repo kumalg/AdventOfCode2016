@@ -8,14 +8,10 @@ import java.util.stream.Collectors;
 
 public class Day3 {
 
-    private Day3() throws IOException{
-        List<String> listOfTriangles = Files.lines(Paths.get("AdventOfCode/description/day3/input.txt")).collect(Collectors.toList());
+    Day3() throws IOException{
+        List<String> listOfTriangles = Files.lines(Paths.get("AdventOfCode/inputs/day3.txt")).collect(Collectors.toList());
         System.out.println("   By row: " + trianglesByRow(toMatrix(listOfTriangles)));
         System.out.println("By column: " + trianglesByCol(toMatrix(listOfTriangles)));
-    }
-
-    public static void main (String[] args) throws IOException{
-        new Day3();
     }
 
     private List<List<Integer>> toMatrix(List<String> list){

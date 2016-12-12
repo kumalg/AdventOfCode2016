@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 
 public class Day7 {
 
-    public static void main(String[] args) throws IOException{
+    Day7() throws IOException{
         List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day7.txt")).collect(Collectors.toList());
 
         System.out.println("Number of IP's supported TSL: " + numberOfIPsSupportTSL(input));
         System.out.println("Number of IP's supported SSL: " + numberOfIPsSupportSSL(input));
     }
 
-    private static int numberOfIPsSupportTSL(List<String> input){
+    private int numberOfIPsSupportTSL(List<String> input){
         int numberOfValidIPs = 0;
 
         for(String line : input){
@@ -39,7 +39,7 @@ public class Day7 {
     }
 
 
-    private static int numberOfIPsSupportSSL(List<String> input){
+    private int numberOfIPsSupportSSL(List<String> input){
         int numberOfValidIPs = 0;
 
         for(String line : input){
@@ -60,32 +60,32 @@ public class Day7 {
                             break;
                         }
                 }
-                if (dupa) numberOfValidIPs++;
+            if (dupa) numberOfValidIPs++;
         }
 
         return numberOfValidIPs;
     }
 
-    private static boolean haveABBAFromList(List<String> stringsTable){
+    private boolean haveABBAFromList(List<String> stringsTable){
         for(String singleString : stringsTable)
             if (haveABBA(singleString)) return true;
         return false;
     }
 
-    private static boolean haveABBA(String string){
+    private boolean haveABBA(String string){
         if (string.length() >= 4)
             for (int i = 0; i < string.length() - 3; i++)
                 if(isABBA(string.substring(i,i+4))) return true;
         return false;
     }
 
-    private static boolean isABBA(String input) {
+    private boolean isABBA(String input) {
         return input.charAt(0) == input.charAt(3)
                 && input.charAt(1) == input.charAt(2)
                 && input.charAt(0) != input.charAt(1);
     }
 
-    private static List<String> listOfABAs(String string){
+    private List<String> listOfABAs(String string){
         List<String> list = new ArrayList<>();
         if (string.length() >= 3)
             for (int i = 0; i < string.length() - 2; i++)
@@ -94,12 +94,12 @@ public class Day7 {
         return list;
     }
 
-    private static boolean isABA(String input) {
+    private boolean isABA(String input) {
         return input.charAt(0) == input.charAt(2)
                 && input.charAt(0) != input.charAt(1);
     }
 
-    private static String invertABA(String input){
+    private String invertABA(String input){
         return input.charAt(1) + "" + input.charAt(0) + "" + input.charAt(1);
     }
 }

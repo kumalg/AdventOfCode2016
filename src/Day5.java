@@ -4,12 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Day5 {
-    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException{
-        new Day5();
-    }
 
     Day5()  throws NoSuchAlgorithmException, UnsupportedEncodingException{
-        String input = "ffykfhsq";
+        String input = "ugkcyxxp";
         long time = System.currentTimeMillis();
         //getPassword(input);
         //getPasswordWithPositions(input);

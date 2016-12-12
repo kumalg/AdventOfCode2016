@@ -7,7 +7,7 @@ public class Day1 {
     private ArrayList<String> allMovesArray = new ArrayList<>();
     private Position position = new Position();
 
-    private Day1(){
+    Day1() {
         toArrayList(allMoves);
 
         for (String s : allMovesArray)
@@ -17,114 +17,110 @@ public class Day1 {
         System.out.println("First repeated position: " + position.getFirstRepeatedPositionString());
     }
 
-    private void toArrayList(String allMoves){
+    private void toArrayList(String allMoves) {
         allMovesArray = new ArrayList<>(Arrays.asList(allMoves.split(", ")));
     }
 
-    public static void main(String[] args) {
-        new Day1();
-    }
-}
+    class Position {
+        private ArrayList<Position> listOfAllPositions;
+        private Position firstRepeatedPosition = null;
+        private int x, y;
+        private char direction;
 
-class Position {
-    private ArrayList<Position> listOfAllPositions;
-    private Position firstRepeatedPosition = null;
-    private int x,y;
-    private char direction;
+        public Position() {
+            x = 0;
+            y = 0;
+            direction = 'N';
 
-    public Position(){
-        x = 0;
-        y = 0;
-        direction = 'N';
-
-        listOfAllPositions = new ArrayList<>();
-        listOfAllPositions.add(new Position(0,0));
-    }
-
-    public Position(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-    public String getPositionString(){
-        return "x: " + x + " | y: " + y + " | Blocks: " + (Math.abs(x)+Math.abs(y));
-    }
-
-    public String getFirstRepeatedPositionString(){
-        return firstRepeatedPosition.getPositionString();
-    }
-
-    @Override
-    public boolean equals(Object o){
-        Position secondPosition = (Position)o;
-        return x == secondPosition.x && y == secondPosition.y;
-    }
-
-    public void go(String dupa){
-        int howManyBlocks = Integer.parseInt(dupa.substring(1,dupa.length()));
-        changeDirection(dupa.charAt(0));
-
-        for (int i = 0; i < howManyBlocks ; i++){
-            switch (direction){
-                case 'N':{
-                    y++;
-                    break;
-                }
-                case 'S':{
-                    y--;
-                    break;
-                }
-                case 'E':{
-                    x++;
-                    break;
-                }
-                case 'W':{
-                    x--;
-                    break;
-                }
-            }
-            tryAddNewPositionToList(x,y);
+            listOfAllPositions = new ArrayList<>();
+            listOfAllPositions.add(new Position(0, 0));
         }
-    }
 
-    private void tryAddNewPositionToList(int x, int y){
-        if (firstRepeatedPosition == null){
-            if (!listOfAllPositions.contains(new Position(x,y)))
-                listOfAllPositions.add(new Position(x,y));
-            else
-                firstRepeatedPosition = new Position(x, y);
+        public Position(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
-    }
 
-    private void changeDirection(char leftOrRight){
-        switch (direction){
-            case 'N' : {
-                if (leftOrRight == 'R')
-                    direction = 'E';
-                else if (leftOrRight == 'L')
-                    direction = 'W';
-                break;
+        public String getPositionString() {
+            return "x: " + x + " | y: " + y + " | Blocks: " + (Math.abs(x) + Math.abs(y));
+        }
+
+        public String getFirstRepeatedPositionString() {
+            return firstRepeatedPosition.getPositionString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            Position secondPosition = (Position) o;
+            return x == secondPosition.x && y == secondPosition.y;
+        }
+
+        public void go(String dupa) {
+            int howManyBlocks = Integer.parseInt(dupa.substring(1, dupa.length()));
+            changeDirection(dupa.charAt(0));
+
+            for (int i = 0; i < howManyBlocks; i++) {
+                switch (direction) {
+                    case 'N': {
+                        y++;
+                        break;
+                    }
+                    case 'S': {
+                        y--;
+                        break;
+                    }
+                    case 'E': {
+                        x++;
+                        break;
+                    }
+                    case 'W': {
+                        x--;
+                        break;
+                    }
+                }
+                tryAddNewPositionToList(x, y);
             }
-            case 'S' : {
-                if (leftOrRight == 'R')
-                    direction = 'W';
-                else if (leftOrRight == 'L')
-                    direction = 'E';
-                break;
+        }
+
+        private void tryAddNewPositionToList(int x, int y) {
+            if (firstRepeatedPosition == null) {
+                if (!listOfAllPositions.contains(new Position(x, y)))
+                    listOfAllPositions.add(new Position(x, y));
+                else
+                    firstRepeatedPosition = new Position(x, y);
             }
-            case 'E' : {
-                if (leftOrRight == 'R')
-                    direction = 'S';
-                else if (leftOrRight == 'L')
-                    direction = 'N';
-                break;
-            }
-            case 'W' : {
-                if (leftOrRight == 'R')
-                    direction = 'N';
-                else if (leftOrRight == 'L')
-                    direction = 'S';
-                break;
+        }
+
+        private void changeDirection(char leftOrRight) {
+            switch (direction) {
+                case 'N': {
+                    if (leftOrRight == 'R')
+                        direction = 'E';
+                    else if (leftOrRight == 'L')
+                        direction = 'W';
+                    break;
+                }
+                case 'S': {
+                    if (leftOrRight == 'R')
+                        direction = 'W';
+                    else if (leftOrRight == 'L')
+                        direction = 'E';
+                    break;
+                }
+                case 'E': {
+                    if (leftOrRight == 'R')
+                        direction = 'S';
+                    else if (leftOrRight == 'L')
+                        direction = 'N';
+                    break;
+                }
+                case 'W': {
+                    if (leftOrRight == 'R')
+                        direction = 'N';
+                    else if (leftOrRight == 'L')
+                        direction = 'S';
+                    break;
+                }
             }
         }
     }

@@ -25,7 +25,7 @@ So, in this example, the bathroom code is 1985.
 
 Your puzzle input is the instructions from the document you found at the front desk. What is the bathroom code?
 
-Your puzzle answer was xxxxx.
+Your puzzle answer was 19636.
 
 --- Part Two ---
 
@@ -46,4 +46,6 @@ So, given the actual keypad layout, the code would be 5DB3.
 
 Using the same instructions in your puzzle input, what is the correct bathroom code?
 
-Your puzzle answer was xxxxx.
+Your puzzle answer was 3CC43.
+
+Both parts of this puzzle are complete! They provide two gold stars: **

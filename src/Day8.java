@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Day8 {
-    public static void main(String[] args) throws IOException{
+    Day8() throws IOException{
         List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day8.txt")).collect(Collectors.toList());
         outputTable(input);
     }
 
-    public static void outputTable(List<String> instructions){
+    private void outputTable(List<String> instructions){
         char[][] screen = new char[6][50];
 
         for (char[] row : screen)
