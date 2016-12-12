@@ -5,11 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Day10 {
-    public static void main(String[] args) throws IOException {
-        new Day10();
-    }
-
-    private Day10() throws IOException{
+    Day10() throws IOException{
         List<String> inputInstructions = Files.lines(Paths.get("AdventOfCode/inputs/day10.txt")).collect(Collectors.toList());
 
         Map<Integer, Bot> botList = new TreeMap<>();
