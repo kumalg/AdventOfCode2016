@@ -5,10 +5,10 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Day6 {
+public class Day06 {
 
-    Day6() throws IOException{
-        List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day6.txt")).collect(Collectors.toList());
+    Day06() throws IOException{
+        List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day06.txt")).collect(Collectors.toList());
 
         System.out.println(correctText(input, entry -> entry.getValue()));
         System.out.println(correctText(input, entry -> -entry.getValue()));

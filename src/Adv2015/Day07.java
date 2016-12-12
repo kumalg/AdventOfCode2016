@@ -6,13 +6,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Day7 {
-    public static void main(String[] args) throws IOException {
-        new Day7();
-    }
+public class Day07 {
 
-    Day7() throws IOException {
-        List<String> inputInstructions = Files.lines(Paths.get("AdventOfCode/inputs/Adv2015/day7.txt")).collect(Collectors.toList());
+    Day07() throws IOException {
+        List<String> inputInstructions = Files.lines(Paths.get("AdventOfCode/inputs/Adv2015/day07.txt")).collect(Collectors.toList());
         List<Integer> listOfAcceptedInstructions = new ArrayList<>();
         Map<String, Integer> mapOfWires = new TreeMap<>();
         int j = 0;

@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day3 {
+public class Day03 {
 
-    Day3() throws IOException{
-        List<String> listOfTriangles = Files.lines(Paths.get("AdventOfCode/inputs/day3.txt")).collect(Collectors.toList());
+    Day03() throws IOException{
+        List<String> listOfTriangles = Files.lines(Paths.get("AdventOfCode/inputs/day03.txt")).collect(Collectors.toList());
         System.out.println("   By row: " + trianglesByRow(toMatrix(listOfTriangles)));
         System.out.println("By column: " + trianglesByCol(toMatrix(listOfTriangles)));
     }

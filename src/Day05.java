@@ -3,9 +3,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Day5 {
+public class Day05 {
 
-    Day5()  throws NoSuchAlgorithmException, UnsupportedEncodingException{
+    Day05()  throws NoSuchAlgorithmException, UnsupportedEncodingException{
         String input = "ugkcyxxp";
         long time = System.currentTimeMillis();
         //getPassword(input);

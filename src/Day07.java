@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day7 {
+public class Day07 {
 
-    Day7() throws IOException{
-        List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day7.txt")).collect(Collectors.toList());
+    Day07() throws IOException{
+        List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day07.txt")).collect(Collectors.toList());
 
         System.out.println("Number of IP's supported TSL: " + numberOfIPsSupportTSL(input));
         System.out.println("Number of IP's supported SSL: " + numberOfIPsSupportSSL(input));

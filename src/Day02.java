@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day2 {
+public class Day02 {
 
     private ArrayList<String> keypad1to9Template = new ArrayList<>(Arrays.asList(
             "123",
@@ -21,8 +21,8 @@ public class Day2 {
             "  D  "
     );
 
-    Day2() throws Exception {
-        List<String> numsString = numsString = Files.lines(Paths.get("AdventOfCode/inputs/day2.txt")).collect(Collectors.toList());
+    Day02() throws Exception {
+        List<String> numsString = numsString = Files.lines(Paths.get("AdventOfCode/inputs/day02.txt")).collect(Collectors.toList());
 
         System.out.println(findPin(keypad1to9Template, numsString, '5'));
         System.out.println(findPin(keypad1toDTemplate, numsString, '5'));

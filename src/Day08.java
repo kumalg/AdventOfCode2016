@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day8 {
-    Day8() throws IOException{
-        List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day8.txt")).collect(Collectors.toList());
+public class Day08 {
+    Day08() throws IOException{
+        List<String> input = Files.lines(Paths.get("AdventOfCode/inputs/day08.txt")).collect(Collectors.toList());
         outputTable(input);
     }
 

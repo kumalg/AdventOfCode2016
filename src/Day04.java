@@ -4,10 +4,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Day4 {
+public class Day04 {
 
-    Day4() throws IOException {
-        List<String> listOfRooms = Files.lines(Paths.get("AdventOfCode/inputs/day4.txt")).collect(Collectors.toList());
+    Day04() throws IOException {
+        List<String> listOfRooms = Files.lines(Paths.get("AdventOfCode/inputs/day04.txt")).collect(Collectors.toList());
 
         int allID = 0;
 
